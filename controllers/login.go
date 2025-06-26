@@ -34,8 +34,8 @@ func Login(c *gin.Context) {
 			})
 		} else {
 			c.JSON(200, gin.H{
-				"message":  "success",
-				"username": input.Username,
+				"message": "success",
+				"token":   "soon will be jwt",
 			})
 		}
 	}
