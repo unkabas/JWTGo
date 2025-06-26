@@ -11,7 +11,7 @@ func SetJWT(username string) (string, error) {
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"sub": username,
-		"exp": time.Now().Add(time.Hour * 24 * 30).Unix(),
+		"exp": time.Now().Add(time.Minute * 40).Unix(),
 	})
 	tokenString, err := token.SignedString([]byte(secret))
 	if err != nil {

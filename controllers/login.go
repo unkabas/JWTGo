@@ -36,9 +36,9 @@ func Login(c *gin.Context) {
 		c.JSON(400, gin.H{"error": "Cant generate Token"})
 		return
 	}
-	c.SetCookie("Authorization", tokenString, 3600*24*30, "", "", false, true)
 
 	c.JSON(200, gin.H{
 		"message": "success login",
+		"token":   tokenString,
 	})
 }
