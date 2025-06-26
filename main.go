@@ -14,5 +14,6 @@ func main() {
 	r.POST("/reg", controllers.Registration)
 	r.POST("/login", controllers.Login)
 	r.GET("/sayHello", middleware.AuthMiddleware, controllers.SayHello)
+	r.POST("/add", middleware.AuthMiddleware, controllers.AddExpense)
 	r.Run(":8080")
 }

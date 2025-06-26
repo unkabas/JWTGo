@@ -8,5 +8,5 @@ import (
 func main() {
 	config.LoadEnvs()
 	config.ConnectDB()
-	config.DB.AutoMigrate(&models.User{})
+	config.DB.AutoMigrate(&models.User{}, &models.Expense{})
 }
