@@ -13,6 +13,6 @@ func main() {
 	r := gin.Default()
 	r.POST("/reg", controllers.Registration)
 	r.POST("/login", controllers.Login)
-	r.GET("/hello", middleware.AuthMiddleware, controllers.SayHello)
+	r.GET("/sayHello", middleware.AuthMiddleware, controllers.SayHello)
 	r.Run(":8080")
 }
