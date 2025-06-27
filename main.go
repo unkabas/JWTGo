@@ -16,5 +16,6 @@ func main() {
 	r.GET("/sayHello", middleware.AuthMiddleware, controllers.SayHello)
 	r.POST("/add", middleware.AuthMiddleware, controllers.AddExpense)
 	r.GET(":name/delete", middleware.AuthMiddleware, controllers.DeleteExpense)
+	r.GET("/all", middleware.AuthMiddleware, controllers.GetAllExpnses)
 	r.Run(":8080")
 }
