@@ -1,13 +1,10 @@
 package controllers
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v5"
 	"github.com/unkabas/JWTGo/config"
 	"github.com/unkabas/JWTGo/models"
-	"os"
-	"strings"
+	"github.com/unkabas/JWTGo/services"
 )
 
 func AddExpense(c *gin.Context) {
@@ -24,32 +21,8 @@ func AddExpense(c *gin.Context) {
 		})
 		return
 	}
-
-	secret := os.Getenv("SECRET")
-	tokenString := c.GetHeader("Authorization")
-	if strings.HasPrefix(tokenString, "Bearer ") {
-		tokenString = strings.TrimPrefix(tokenString, "Bearer ")
-	} else {
-		c.JSON(401, gin.H{"message": "Invalid Authorization header format"})
-		return
-	}
-	claims := jwt.MapClaims{}
-	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
-		return []byte(secret), nil
-	})
-	if err != nil {
-		c.JSON(400, gin.H{
-			"message": "no token",
-		})
-	}
-	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		res := claims["sub"].(string)
-		newExpense.Author = res
-		fmt.Println(newExpense.Author)
-	} else {
-		fmt.Println("Invalid token")
-	}
-
+	res := services.DecodeJwt(c)
+	newExpense.Author = res
 	if err := config.DB.Create(&newExpense).Error; err != nil {
 		c.JSON(400, gin.H{
 			"message": "Expense not created",

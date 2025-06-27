@@ -7,5 +7,4 @@ type User struct {
 	Username string
 	Email    string
 	Password string
-	Expense  []Expense `gorm:"foreignKey:id"`
 }
