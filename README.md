@@ -1,7 +1,7 @@
 # 💻 EXPENSE TRACKER API 
 
 <div align="center">
-  <img src="https://media.giphy.com/media/L1R1tvI9svkIWwpVYr/giphy.gif](https://tenor.com/ru/view/ghoul-gif-11715271221204001679)" width="300">
+  <img src="https://media.giphy.com/media/L1R1tvI9svkIWwpVYr/giphy.gif(https://tenor.com/ru/view/ghoul-gif-11715271221204001679)" width="300">
 </div>
 
 ---
