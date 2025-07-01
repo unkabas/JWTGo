@@ -15,7 +15,7 @@ func AddExpense(c *gin.Context) {
 		})
 		return
 	}
-	if newExpense.Name == "" || newExpense.Price == 0 || newExpense.Date == "" {
+	if newExpense.Name == "" || newExpense.Price == 0 {
 		c.JSON(400, gin.H{
 			"message": "No Name or Price or Date added",
 		})

@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/unkabas/JWTGo/config"
 	"github.com/unkabas/JWTGo/models"
@@ -37,8 +38,26 @@ func Login(c *gin.Context) {
 		return
 	}
 
+	refresh, err := services.SetRefresh()
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+	session := models.Session{
+		Username:     input.Username,
+		RefreshToken: refresh,
+	}
+	if err := config.DB.Create(&session).Error; err != nil {
+		c.JSON(500, gin.H{
+			"message": "Failed to create refresh",
+		})
+		return
+	}
+
 	c.JSON(200, gin.H{
 		"message": "success login",
 		"token":   tokenString,
+		"refresh": refresh,
 	})
 }

@@ -9,15 +9,27 @@ import (
 
 func GetAllExpnses(c *gin.Context) {
 	user := services.DecodeJwt(c)
-	var allExpnses []models.Expense
+	var expnses []models.Expense
+	sortBy := c.DefaultQuery("sort", "")
+	query := config.DB.Where("author = ?", user)
 
-	if err := config.DB.Where("author = ?", user).Find(&allExpnses).Error; err != nil {
+	switch sortBy {
+	case "price_asc":
+		query = config.DB.Order("price ASC")
+	case "price_desc":
+		query = config.DB.Order("price DESC")
+	case "date_asc":
+		query = config.DB.Order("date ASC")
+	case "date_desc":
+		query = config.DB.Order("date DESC")
+	}
+	if err := query.Find(&expnses).Error; err != nil {
 		c.JSON(400, gin.H{
-			"message": "no expnses found",
+			"message": "no expenses found",
 		})
 		return
 	}
 	c.JSON(200, gin.H{
-		"expnses": allExpnses,
+		"expenses": expnses,
 	})
 }

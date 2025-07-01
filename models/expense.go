@@ -1,11 +1,14 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+	"time"
+)
 
 type Expense struct {
 	gorm.Model
 	Name   string
 	Price  int
-	Date   string
+	Date   time.Time
 	Author string
 }

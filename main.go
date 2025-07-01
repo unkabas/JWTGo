@@ -11,11 +11,20 @@ func main() {
 	config.LoadEnvs()
 	config.ConnectDB()
 	r := gin.Default()
-	r.POST("/reg", controllers.Registration)
-	r.POST("/login", controllers.Login)
+	{
+		auth := r.Group("/auth")
+		auth.POST("/reg", controllers.Registration)
+		auth.POST("/login", controllers.Login)
+		auth.POST("/refresh", middleware.AuthMiddleware, controllers.Refresh)
+	}
+	{
+		expense := r.Group("/expense")
+		expense.POST("/add", middleware.AuthMiddleware, controllers.AddExpense)
+		expense.GET(":name/delete", middleware.AuthMiddleware, controllers.DeleteExpense)
+		expense.GET("/all", middleware.AuthMiddleware, controllers.GetAllExpnses)
+	}
+
 	r.GET("/sayHello", middleware.AuthMiddleware, controllers.SayHello)
-	r.POST("/add", middleware.AuthMiddleware, controllers.AddExpense)
-	r.GET(":name/delete", middleware.AuthMiddleware, controllers.DeleteExpense)
-	r.GET("/all", middleware.AuthMiddleware, controllers.GetAllExpnses)
+
 	r.Run(":8080")
 }
