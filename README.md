@@ -18,5 +18,5 @@ Built this micro-service to track ur expenses. Features:
 
 ### NERDLIFE APPROVED ✅
 <div align="center">
-  <img src="https://media.giphy.com/media/13HgwGsXF0aiGY/giphy.gif" width="300">
+  <img src="https://media1.tenor.com/m/3mXPpfYE2mkAAAAC/nerd-nerds.gif" width="300">
 </div>
